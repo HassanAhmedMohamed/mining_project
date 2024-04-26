@@ -1,0 +1,20 @@
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import MinMaxScaler
+df = pd.read_csv("C:\\Users\KING\Downloads\heart_failure_clinical_records_dataset.csv")
+
+# Display the first few rows of the dataset
+print(df.head)
+
+# Check the dimensions of the dataset
+print(df.shape)
+
+# Check the data types of each column
+print(df.dtypes)
+
+z_scores = (df - df.mean()) / df.std()
+df = df[(z_scores < 3).all(axis=1)]
+
+scaler = MinMaxScaler()
+df_scaled = pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
+df_scaled.head()
